@@ -41,6 +41,58 @@ export function Navigation({ onOpenStudio }: NavigationProps) {
   const iosGuideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const deferredPrompt = useRef<any>(null);
 
+  /* ── Mobile horizontal slider rail tracking & drag ────────────────────── */
+  const railRef = useRef<HTMLDivElement | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftStart = useRef(0);
+
+  const updateScrollProgress = () => {
+    const el = railRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll > 0) {
+      setScrollProgress(Math.min(1, Math.max(0, el.scrollLeft / maxScroll)));
+    } else {
+      setScrollProgress(0);
+    }
+  };
+
+  useEffect(() => {
+    const el = railRef.current;
+    if (!el) return;
+    updateScrollProgress();
+    el.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress, { passive: true });
+    return () => {
+      el.removeEventListener('scroll', updateScrollProgress);
+      window.removeEventListener('resize', updateScrollProgress);
+    };
+  }, []);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    const el = railRef.current;
+    if (!el) return;
+    isDragging.current = true;
+    startX.current = e.pageX - el.offsetLeft;
+    scrollLeftStart.current = el.scrollLeft;
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    const el = railRef.current;
+    if (!el) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    el.scrollLeft = scrollLeftStart.current - walk;
+  };
+
+  const onMouseUpOrLeave = () => {
+    isDragging.current = false;
+  };
+
   /* ── Scroll lift ─────────────────────────────────────────────────────── */
   useEffect(() => {
     const onScroll = () => setLifted(window.scrollY > window.innerHeight * 0.4);
@@ -118,62 +170,81 @@ export function Navigation({ onOpenStudio }: NavigationProps) {
           </span>
         </a>
 
-        <div className="masthead__rail-wrap">
-          <nav className="masthead__nav" aria-label="Primary">
-            <ul>
-              {LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <div className="masthead__slider-container">
+          <div
+            ref={railRef}
+            className="masthead__rail-wrap"
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUpOrLeave}
+            onMouseLeave={onMouseUpOrLeave}
+          >
+            <nav className="masthead__nav" aria-label="Primary">
+              <ul>
+                {LINKS.map((link) => (
+                  <li key={link.href}>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          <div className="masthead__actions">
-            {/* FREE DOWNLOAD — PWA install button */}
-            <div className="install-wrap">
-              <button
-                type="button"
-                className={`btn btn--download${isInstalled ? ' is-installed' : ''}`}
-                onClick={handleDownload}
-                disabled={isInstalled}
-                aria-label={downloadLabel}
-                title={isInstalled ? 'Already installed on your device' : 'Download and use offline'}
-              >
-                {isInstalled ? (
-                  <>
-                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M1.5 6.5L4.5 9.5L10.5 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <div className="masthead__actions">
+              {/* FREE DOWNLOAD — PWA install button */}
+              <div className="install-wrap">
+                <button
+                  type="button"
+                  className={`btn btn--download${isInstalled ? ' is-installed' : ''}`}
+                  onClick={handleDownload}
+                  disabled={isInstalled}
+                  aria-label={downloadLabel}
+                  title={isInstalled ? 'Already installed on your device' : 'Download and use offline'}
+                >
+                  {isInstalled ? (
+                    <>
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M1.5 6.5L4.5 9.5L10.5 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Already installed
+                    </>
+                  ) : (
+                    <>
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M6 1v7M3 6l3 3 3-3M1 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Free download
+                    </>
+                  )}
+                </button>
+
+                {/* iOS "Add to Home Screen" guide — appears below the button */}
+                {showIOSGuide && (
+                  <div className="ios-guide" role="tooltip" aria-live="polite">
+                    <span className="ios-guide__arrow" aria-hidden="true">▲</span>
+                    Tap{' '}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" style={{ display: 'inline', verticalAlign: 'middle' }}>
+                      <path d="M12 2v12M7 7l5-5 5 5M5 21h14"/>
                     </svg>
-                    Already installed
-                  </>
-                ) : (
-                  <>
-                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M6 1v7M3 6l3 3 3-3M1 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    Free download
-                  </>
+                    {' '}Share, then{' '}
+                    <strong>Add to Home Screen</strong>
+                  </div>
                 )}
+              </div>
+
+              <button type="button" className="btn btn--ghost masthead__cta" onClick={() => onOpenStudio()}>
+                Try free unlimited
               </button>
-
-              {/* iOS "Add to Home Screen" guide — appears below the button */}
-              {showIOSGuide && (
-                <div className="ios-guide" role="tooltip" aria-live="polite">
-                  <span className="ios-guide__arrow" aria-hidden="true">▲</span>
-                  Tap{' '}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" style={{ display: 'inline', verticalAlign: 'middle' }}>
-                    <path d="M12 2v12M7 7l5-5 5 5M5 21h14"/>
-                  </svg>
-                  {' '}Share, then{' '}
-                  <strong>Add to Home Screen</strong>
-                </div>
-              )}
             </div>
+          </div>
 
-            <button type="button" className="btn btn--ghost masthead__cta" onClick={() => onOpenStudio()}>
-              Try free unlimited
-            </button>
+          {/* Mobile slide bar indicator */}
+          <div className="masthead__slide-track" aria-hidden="true">
+            <div
+              className="masthead__slide-thumb"
+              style={{
+                transform: `translateX(${scrollProgress * 200}%)`,
+              }}
+            />
           </div>
         </div>
       </div>
