@@ -267,33 +267,33 @@
 
 @media (max-width: 900px) {
   .masthead {
-    background: rgba(5, 7, 10, 0.92);
+    background: rgba(5, 7, 10, 0.92) !important;
     backdrop-filter: blur(18px) saturate(120%);
     -webkit-backdrop-filter: blur(18px) saturate(120%);
     border-bottom: 1px solid var(--border-soft);
   }
 
   .masthead__inner {
-    padding: 0.5rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    max-width: 100%;
-    overflow: visible;    /* ← CRITICAL: don't clip — let rail-wrap handle scrolling */
-    flex-wrap: nowrap;
+    padding: 0.5rem 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    flex-wrap: nowrap !important;
   }
 
   .brand {
-    flex-shrink: 0;
-    margin-right: 0;
+    flex-shrink: 0 !important;
+    margin-right: 0 !important;
     gap: 0.4rem;
     padding-left: 0.75rem;
   }
 
   .brand__mark {
-    width: 1.75rem;
-    height: 1.75rem;
-    flex-shrink: 0;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    flex-shrink: 0 !important;
   }
 
   .brand__word {
@@ -303,22 +303,25 @@
   }
 
   /* ── Mobile Horizontal Slider Rail ──────────────────────────────────────── */
+
+  /* CRITICAL: override display:contents from desktop */
   .masthead__slider-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0%;
-    min-width: 0;        /* ← key: lets flex child shrink below content size */
-    overflow: hidden;    /* ← clips content so rail-wrap scroll is the only scroll */
-    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
   }
 
+  /* CRITICAL: this is the actual scrollable rail */
   .masthead__rail-wrap {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.625rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
     scroll-behavior: smooth;
@@ -326,6 +329,7 @@
     -ms-overflow-style: none;
     padding: 0.35rem 0.75rem 0.35rem 0.625rem;
     cursor: grab;
+    flex-wrap: nowrap !important;
 
     /* Fade edges to hint at scrollability */
     mask-image: linear-gradient(to right, transparent 0, #000 8px, #000 calc(100% - 8px), transparent 100%);
@@ -342,7 +346,7 @@
 
   /* Slide progress indicator bar */
   .masthead__slide-track {
-    display: block;
+    display: block !important;
     width: 44px;
     height: 2px;
     background: rgba(255, 255, 255, 0.12);
@@ -364,29 +368,29 @@
   /* Nav links laid out as flex row inside slider */
   .masthead__nav {
     display: flex !important;
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
   }
 
   .masthead__nav ul {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
     gap: 0.625rem;
     padding: 0;
     margin: 0;
     list-style: none;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
   }
 
   .masthead__nav li {
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
   }
 
   .masthead__nav a {
     font-size: 0.6875rem;
     letter-spacing: 0.06em;
     padding: 0.3rem 0;
-    white-space: nowrap;
-    flex-shrink: 0;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
     color: var(--text-secondary);
   }
 
@@ -397,11 +401,11 @@
 
   /* Action buttons — stay as non-wrapping flex items */
   .masthead__actions {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
     gap: 0.375rem;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
   }
 
   .btn--download {
@@ -409,8 +413,8 @@
     padding: 0 0.625rem;
     font-size: 0.625rem;
     letter-spacing: 0.04em;
-    white-space: nowrap;
-    flex-shrink: 0;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   .masthead__cta {
@@ -418,7 +422,8 @@
     padding: 0 0.625rem;
     font-size: 0.625rem;
     letter-spacing: 0.04em;
-    white-space: nowrap;
-    flex-shrink: 0;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 }
+
