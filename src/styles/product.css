@@ -1,0 +1,257 @@
+/* ==========================================================================
+   LIGHTNING ATI — PRODUCT SURFACE
+   The composer, and the footer beneath it. Deliberately quiet: after two
+   chapters of cinema the interface should feel like an instrument, not a page.
+   ========================================================================== */
+
+.product {
+  position: relative;
+  padding: clamp(5rem, 14vh, 10rem) var(--gutter) clamp(4rem, 10vh, 8rem);
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(22, 140, 255, 0.07) 0%, transparent 62%),
+    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 100%);
+  border-top: 1px solid var(--border-soft);
+}
+
+.product__inner {
+  max-width: 56rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.product__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-align: center;
+  align-items: center;
+}
+
+.product__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 3.85rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.product__head .lede {
+  max-width: 32rem;
+  font-family: var(--font-body);
+  font-size: clamp(1.125rem, 1.35vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+/* ── Composer ───────────────────────────────────────────────────────────── */
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-mid) var(--ease-precise),
+    box-shadow var(--dur-mid) var(--ease-precise);
+}
+
+.composer:focus-within {
+  border-color: var(--border-accent);
+  box-shadow: var(--glow-accent), var(--shadow-panel);
+}
+
+.composer__field {
+  width: 100%;
+  min-height: 7.5rem;
+  padding: var(--space-5);
+  background: transparent;
+  border: 0;
+  outline: none;
+  resize: vertical;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+
+.composer__field::placeholder {
+  font-family: var(--font-body);
+  color: var(--text-tertiary);
+  opacity: 0.75;
+}
+
+.composer__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border-top: 1px solid var(--border-soft);
+}
+
+.composer__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.composer__hint kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.375rem;
+  height: 1.375rem;
+  padding: 0 0.25rem;
+  background: var(--bg-card-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--metal-light);
+}
+
+/* ── Starters ───────────────────────────────────────────────────────────── */
+
+.starters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  justify-content: center;
+}
+
+.starters__label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.starters__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+.chip {
+  padding: 0.5rem 0.875rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+  transition:
+    color var(--dur-fast) var(--ease-precise),
+    border-color var(--dur-fast) var(--ease-precise),
+    background-color var(--dur-fast) var(--ease-precise);
+}
+
+.chip:hover {
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+  background: var(--electric-tint-08);
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+
+.site-foot {
+  padding: var(--space-7) var(--gutter) var(--space-8);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-soft);
+}
+
+.site-foot__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.site-foot__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+
+.site-foot__brand img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.site-foot__brand strong {
+  margin-left: 0.3em;
+  font-weight: 400;
+  color: var(--electric-blue-bright);
+}
+
+.site-foot__note {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.site-foot__meta {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 900px) {
+  .composer__foot {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .composer__go {
+    width: 100%;
+  }
+
+  .composer__hint {
+    justify-content: center;
+  }
+
+  .site-foot__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}

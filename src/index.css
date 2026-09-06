@@ -1,0 +1,33 @@
+/* ==========================================================================
+   LIGHTNING ATI — STYLE ENTRY
+   Import order is the cascade order: tokens, then the page, then the chapters,
+   then the product surface, then the studio (which keeps its own original
+   stylesheet so its markup and API logic could stay untouched).
+   ========================================================================== */
+@import 'tailwindcss';
+
+@import './styles/tokens.css';
+@import './styles/base.css';
+@import './styles/nav.css';
+@import './styles/cinematic.css';
+@import './styles/chapters.css';
+@import './styles/product.css';
+@import './styles/studio.css';
+
+/* ── Global motion preference ───────────────────────────────────────────────
+   The cinematic chapters already swap to held frames in JS; this is the
+   belt-and-braces pass for ambient animation and smooth scrolling.
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

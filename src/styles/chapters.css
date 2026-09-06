@@ -1,0 +1,128 @@
+/* ==========================================================================
+   LIGHTNING ATI — CHAPTER FURNITURE
+   The two small type systems the cinematic chapters carry: Chapter I's spec
+   row, and Chapter II's reasoning ladder.
+   ========================================================================== */
+
+/* ── Chapter I — spec row ───────────────────────────────────────────────── */
+
+.spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-soft);
+}
+
+.spec__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.spec__row dt {
+  color: var(--text-tertiary);
+}
+
+.spec__row dd {
+  color: var(--metal-light);
+}
+
+/* ── Chapter II — reasoning ladder ─────────────────────────────────────── */
+
+.ladder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-left: var(--space-6);
+}
+
+/* The spine draws down as the stages land — the pathway, not a list bullet. */
+.ladder::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 1px;
+  background: linear-gradient(180deg, var(--electric-blue-bright), var(--electric-blue-deep));
+  transform: scaleY(var(--r-ladder));
+  transform-origin: top;
+}
+
+.ladder__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--space-4);
+  row-gap: 0.15rem;
+}
+
+.ladder__node {
+  position: absolute;
+  left: calc(var(--space-6) * -1);
+  top: 0.55rem;
+  width: 5px;
+  height: 5px;
+  margin-left: -2px;
+  border-radius: var(--radius-pill);
+  background: var(--electric-blue-bright);
+  box-shadow: 0 0 0 3px rgba(22, 140, 255, 0.16);
+}
+
+.ladder__n {
+  grid-row: 1 / span 2;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--tracking-mono);
+  color: var(--text-tertiary);
+  padding-top: 0.3rem;
+}
+
+.ladder__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.ladder__body {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 28rem;
+}
+
+.scene__outro {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 900px) {
+  .ladder {
+    gap: var(--space-4);
+    padding-left: var(--space-5);
+  }
+
+  .ladder__node {
+    left: calc(var(--space-5) * -1);
+  }
+
+  .ladder__body {
+    font-size: 0.8125rem;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "LIGHTNING ATI",
+  "description": "LIGHTNING ATI — Artificial Thinking Intelligence. Turn your idea into a complete, production-ready website master prompt.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,115 @@
+@import './studio-extracted.css';
+
+/**
+ * LIGHTNING ATI — Prompt Studio.
+ *
+ * The studio's own stylesheet: the block above was lifted verbatim out of the old
+ * index.css so PromptStudioModal.tsx — which owns every /api/lightning/* request —
+ * needed no changes at all. Only the legacy tokens it reads are re-pointed at the
+ * new palette, so the studio inherits the brand grade without a markup edit.
+ */
+:root {
+  --ease-premium: var(--ease-cinematic);
+  --text-dim: var(--text-secondary);
+  --text-dimmer: var(--text-tertiary);
+  --electric-glow: var(--electric-tint-24);
+  --line: var(--border);
+  --line-subtle: var(--border-soft);
+}
+
+/* Re-grade the studio surface to the cinematic environment. */
+.studio-backdrop {
+  background: var(--bg-deep);
+  background-image:
+    radial-gradient(ellipse 92% 58% at 50% -6%, var(--electric-tint-14) 0%, transparent 66%),
+    radial-gradient(circle at 8% 100%, rgba(10, 77, 143, 0.14) 0%, transparent 46%);
+}
+
+.studio-title,
+.studio-result-title,
+.studio-section-title {
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-heading);
+}
+
+.studio-textarea,
+.studio-section-body {
+  color: var(--text-primary);
+}
+
+.studio-input-card {
+  background: var(--bg-card);
+  border-color: var(--border);
+}
+
+.studio-input-card:focus-within {
+  border-color: var(--border-accent);
+  box-shadow: var(--glow-accent);
+}
+
+/* ── Legacy controls the studio markup still asks for ───────────────────────
+   Carried over from the old stylesheet and re-graded to the brand accent, so
+   PromptStudioModal.tsx keeps every class name it already had.
+   ------------------------------------------------------------------------- */
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 clamp(22px, 2vw, 30px);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-fast) var(--ease-precise),
+    border-color var(--dur-fast) var(--ease-precise),
+    box-shadow var(--dur-mid) var(--ease-precise),
+    transform var(--dur-fast) var(--ease-precise);
+}
+
+.btn-primary {
+  color: var(--text-primary);
+  background: var(--electric-blue);
+  border: 1px solid var(--electric-blue-bright);
+  box-shadow: 0 10px 34px -14px var(--electric-tint-40);
+}
+
+.btn-primary:hover {
+  background: var(--electric-blue-bright);
+  color: var(--text-on-accent);
+  box-shadow: var(--glow-accent);
+}
+
+.btn-secondary {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-accent);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary__arrow {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--ease-precise);
+}
+
+.btn-secondary:hover .btn-secondary__arrow {
+  transform: translateX(3px);
+}

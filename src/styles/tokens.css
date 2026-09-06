@@ -1,0 +1,154 @@
+/* ==========================================================================
+   LIGHTNING ATI — DESIGN TOKENS
+   Single source of truth for the cinematic intelligence environment.
+   Electric blue is an intelligence accent, never a surface.
+   ========================================================================== */
+
+:root {
+  /* ── Surfaces ─────────────────────────────────────────────────────────── */
+  --bg-deep: #05070a;
+  --bg-surface: #0a0d12;
+  --bg-card: #10151c;
+  --bg-card-raised: #151b24;
+
+  /* ── Metal ────────────────────────────────────────────────────────────── */
+  --metal: #6f7680;
+  --metal-light: #aeb5be;
+  --metal-dark: #3a4048;
+
+  /* ── Intelligence accent ──────────────────────────────────────────────── */
+  --electric-blue: #168cff;
+  --electric-blue-bright: #49b4ff;
+  --electric-blue-deep: #0a4d8f;
+  --electric-tint-08: rgba(22, 140, 255, 0.08);
+  --electric-tint-14: rgba(22, 140, 255, 0.14);
+  --electric-tint-24: rgba(22, 140, 255, 0.24);
+  --electric-tint-40: rgba(22, 140, 255, 0.4);
+  --electric-glow-soft: rgba(22, 140, 255, 0.18);
+  --electric-glow-hard: rgba(73, 180, 255, 0.45);
+
+  /* ── Text ─────────────────────────────────────────────────────────────── */
+  --text-primary: #f4f7fa;
+  --text-secondary: #8d98a6;
+  --text-tertiary: #5c6672;
+  --text-on-accent: #04070c;
+
+  /* ── Lines ────────────────────────────────────────────────────────────── */
+  --border: rgba(255, 255, 255, 0.1);
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(73, 180, 255, 0.34);
+
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Fluid display scale — tightly controlled, cinematic. */
+  --fs-display: clamp(2.9rem, 6.4vw, 6rem);
+  --fs-h1: clamp(2.4rem, 4.9vw, 4.5rem);
+  --fs-h2: clamp(1.9rem, 3.4vw, 3.1rem);
+  --fs-h3: clamp(1.25rem, 1.9vw, 1.6rem);
+  --fs-body-lg: clamp(1.125rem, 1.25vw, 1.25rem);
+  --fs-body: clamp(0.9375rem, 1vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-eyebrow: 0.6875rem;
+  --fs-nav: 0.8125rem;
+  --fs-mono: 0.75rem;
+
+  --lh-display: 0.96;
+  --lh-heading: 1.08;
+  --lh-body: 1.6;
+
+  --tracking-display: -0.028em;
+  --tracking-heading: -0.022em;
+  --tracking-body: -0.01em;
+  --tracking-eyebrow: 0.16em;
+  --tracking-nav: 0.07em;
+  --tracking-mono: 0.12em;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ── Space ────────────────────────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.75rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 9rem;
+
+  --gutter: clamp(1.25rem, 4.4vw, 5.5rem);
+  --measure: 34rem;
+  --container: 96rem;
+
+  /* ── Radii ────────────────────────────────────────────────────────────── */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* ── Motion — engineered, never elastic ───────────────────────────────── */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.32, 1);
+  --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter: cubic-bezier(0.16, 0.84, 0.24, 1);
+  --dur-fast: 180ms;
+  --dur-mid: 320ms;
+  --dur-slow: 620ms;
+  --dur-cinematic: 1100ms;
+
+  /* ── Depth ────────────────────────────────────────────────────────────── */
+  --shadow-panel: 0 24px 80px -24px rgba(0, 0, 0, 0.9), 0 2px 0 0 rgba(255, 255, 255, 0.03) inset;
+  --shadow-raised: 0 12px 40px -16px rgba(0, 0, 0, 0.85);
+  --glow-accent: 0 0 0 1px rgba(73, 180, 255, 0.28), 0 8px 32px -8px rgba(22, 140, 255, 0.45);
+
+  /* ── Layers ───────────────────────────────────────────────────────────── */
+  --z-atmosphere: 0;
+  --z-scene: 1;
+  --z-scene-overlay: 2;
+  --z-scene-content: 3;
+  --z-header: 60;
+  --z-menu: 70;
+  --z-studio: 100;
+
+  /* ── Cinematic scene lengths (scroll distance per chapter) ────────────── */
+  --scene-length-core: 340vh;
+  --scene-length-structure: 320vh;
+
+  /* Runtime scene state — written by the scroll engine, read by overlays.
+     Declared here so the cascade always has a defined starting value. */
+  --p: 0;
+  --r-cue: 1;
+  --r-rail: 0;
+  --r-eyebrow: 0;
+  --r-title-a: 0;
+  --r-title-b: 0;
+  --r-body: 0;
+  --r-meta: 0;
+  --r-scrim: 0;
+  --r-bloom: 0;
+  --r-vignette: 0.55;
+  --r-ladder: 0;
+  --r-step-1: 0;
+  --r-step-2: 0;
+  --r-step-3: 0;
+  --r-step-4: 0;
+  --r-outro: 0;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --scene-length-core: 280svh;
+    --scene-length-structure: 260svh;
+    --tracking-eyebrow: 0.2em;
+  }
+}

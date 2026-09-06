@@ -1,0 +1,380 @@
+/* ==========================================================================
+   LIGHTNING ATI — CINEMATIC SCENE SHELL
+   The sticky viewport, the plate, and every grading pass that sits on top of
+   it. The canvas draws frames and nothing else; contrast, bloom, vignette and
+   grain are all done here so the draw loop stays one drawImage per tick.
+   ========================================================================== */
+
+.scene {
+  position: relative;
+  height: var(--scene-length-core);
+  background: var(--bg-deep);
+}
+
+.scene--structure {
+  height: var(--scene-length-structure);
+}
+
+.scene__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
+  background: var(--bg-deep);
+}
+
+/* ── Plate ──────────────────────────────────────────────────────────────── */
+
+.scene__plate {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-scene);
+}
+
+.scene__canvas,
+.scene__poster,
+.scene__still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene__poster,
+.scene__still {
+  object-fit: cover;
+  object-position: calc(var(--cam-x, 0.4) * 100%) 46%;
+}
+
+/* The poster is the first paint; it steps aside once real frames are decoding. */
+.scene__poster {
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-precise);
+}
+
+.scene.is-ready .scene__poster {
+  opacity: 0;
+}
+
+/* If the sequence can't load at all, the poster stays and carries the scene. */
+.scene.is-failed .scene__poster {
+  opacity: 1;
+}
+
+.scene.is-failed .scene__canvas {
+  display: none;
+}
+
+/* ── Grading passes ─────────────────────────────────────────────────────── */
+
+.scene__bloom,
+.scene__scrim,
+.scene__vignette,
+.scene__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-scene-overlay);
+}
+
+/* Atmosphere around the core: the light the emblem throws into the room. */
+.scene__bloom {
+  opacity: var(--r-bloom);
+  background:
+    radial-gradient(
+      42vw 42vw at calc(var(--cam-x, 0.4) * 100%) 48%,
+      var(--electric-tint-14) 0%,
+      rgba(22, 140, 255, 0.05) 42%,
+      transparent 72%
+    );
+  mix-blend-mode: screen;
+}
+
+/* Contrast under the type, shaped so it reads as falloff, not a panel. */
+.scene__scrim {
+  opacity: var(--r-scrim);
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 34%,
+    rgba(5, 7, 10, 0.42) 52%,
+    rgba(5, 7, 10, 0.82) 78%,
+    rgba(5, 7, 10, 0.92) 100%
+  );
+}
+
+.scene__vignette {
+  opacity: var(--r-vignette);
+  background:
+    radial-gradient(130% 100% at 50% 50%, transparent 38%, rgba(0, 0, 0, 0.62) 100%),
+    linear-gradient(180deg, rgba(5, 7, 10, 0.72) 0%, transparent 22%, transparent 74%, rgba(5, 7, 10, 0.86) 100%);
+}
+
+/* Film grain keeps the gradients from banding on wide dark falloffs. */
+.scene__grain {
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+/* ── UI layer ───────────────────────────────────────────────────────────── */
+
+.scene__ui {
+  position: relative;
+  z-index: var(--z-scene-content);
+  height: 100%;
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: max(var(--space-9), 16vh) var(--gutter) var(--space-8);
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+}
+
+/* The move in Chapter I clears the right half — that is where the story goes. */
+.scene__copy {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 40rem;
+}
+
+.scene__copy .display {
+  margin-top: calc(var(--space-2) * -1);
+}
+
+/* ── Chapter rail ───────────────────────────────────────────────────────── */
+
+.scene__rail {
+  position: absolute;
+  top: max(var(--space-9), 15vh);
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  opacity: var(--r-rail);
+  transition: opacity var(--dur-mid) linear;
+}
+
+.scene__rail-line {
+  width: clamp(1.5rem, 4vw, 3.25rem);
+  height: 1px;
+  background: linear-gradient(90deg, var(--electric-blue-bright), transparent);
+}
+
+.scene__rail-label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ── Scroll cue ─────────────────────────────────────────────────────────── */
+
+.scene__cue {
+  position: absolute;
+  left: 50%;
+  bottom: max(var(--space-6), 5vh);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  opacity: var(--r-cue);
+}
+
+.scene__cue-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.scene__cue-track {
+  position: relative;
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(180deg, var(--border-strong), transparent);
+  overflow: hidden;
+}
+
+.scene__cue-dot {
+  position: absolute;
+  inset-inline: -1px;
+  height: 0.75rem;
+  background: var(--electric-blue-bright);
+  animation: cue-fall 2.1s var(--ease-precise) infinite;
+}
+
+@keyframes cue-fall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  38% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(300%);
+    opacity: 0;
+  }
+}
+
+/* ── Reveal bindings ────────────────────────────────────────────────────────
+   Every reveal is a published scroll value, so nothing here waits on an
+   intersection callback and nothing can land out of order.
+   ------------------------------------------------------------------------- */
+
+[data-r] {
+  will-change: opacity, transform;
+}
+
+[data-r='eyebrow'] {
+  opacity: var(--r-eyebrow);
+  transform: translate3d(0, calc((1 - var(--r-eyebrow)) * 0.9rem), 0);
+}
+
+[data-r='title-a'] {
+  opacity: var(--r-title-a);
+  transform: translate3d(0, calc((1 - var(--r-title-a)) * 1.5rem), 0);
+}
+
+[data-r='title-b'] {
+  opacity: var(--r-title-b);
+  transform: translate3d(0, calc((1 - var(--r-title-b)) * 1.5rem), 0);
+}
+
+[data-r='body'] {
+  opacity: var(--r-body);
+  transform: translate3d(0, calc((1 - var(--r-body)) * 1.1rem), 0);
+}
+
+[data-r='meta'] {
+  opacity: var(--r-meta);
+  transform: translate3d(0, calc((1 - var(--r-meta)) * 0.8rem), 0);
+}
+
+[data-r='outro'] {
+  opacity: var(--r-outro);
+  transform: translate3d(0, calc((1 - var(--r-outro)) * 0.8rem), 0);
+}
+
+[data-r='step-1'] {
+  opacity: var(--r-step-1);
+  transform: translate3d(calc((1 - var(--r-step-1)) * 1.25rem), 0, 0);
+}
+
+[data-r='step-2'] {
+  opacity: var(--r-step-2);
+  transform: translate3d(calc((1 - var(--r-step-2)) * 1.25rem), 0, 0);
+}
+
+[data-r='step-3'] {
+  opacity: var(--r-step-3);
+  transform: translate3d(calc((1 - var(--r-step-3)) * 1.25rem), 0, 0);
+}
+
+[data-r='step-4'] {
+  opacity: var(--r-step-4);
+  transform: translate3d(calc((1 - var(--r-step-4)) * 1.25rem), 0, 0);
+}
+
+/* Sections outside the cinematic engine reveal on load, not on scroll. */
+.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Static fallback (prefers-reduced-motion) ───────────────────────────────
+   The chapters keep their composition and their copy; they simply stop being
+   scroll-driven. Each becomes one held frame — the plate the chapter was
+   written around — with everything revealed.
+   ------------------------------------------------------------------------- */
+
+.scene--static {
+  height: auto;
+}
+
+.scene--static .scene__sticky {
+  position: relative;
+  height: auto;
+  min-height: min(100svh, 46rem);
+}
+
+.scene--static .scene__cue {
+  display: none;
+}
+
+.scene--static .scene__ui {
+  padding-block: var(--space-9);
+}
+
+/* ── Portrait and compact composition ──────────────────────────────────────
+   Not a squeezed desktop layout: the plate becomes an art-directed band at the
+   top of frame and the copy takes the space below it, which is the same
+   left-emblem / clear-information-space idea rotated for a tall screen.
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .scene__plate {
+    inset: 0 0 auto 0;
+    height: 50svh;
+    mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  }
+
+  .scene__scrim {
+    background: linear-gradient(180deg, transparent 42%, rgba(5, 7, 10, 0.92) 100%);
+  }
+
+  .scene__vignette {
+    background:
+      radial-gradient(120% 90% at 50% 44%, transparent 40%, rgba(0, 0, 0, 0.58) 100%),
+      linear-gradient(180deg, rgba(5, 7, 10, 0.66) 0%, transparent 26%);
+  }
+
+  .scene__ui {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    padding: 45svh var(--gutter) var(--space-6);
+  }
+
+  .scene__copy {
+    grid-column: 1;
+    gap: var(--space-4);
+    max-width: none;
+  }
+
+  .scene__copy .display {
+    font-size: clamp(2.1rem, 9.2vw, 3.1rem);
+  }
+
+  .scene__copy .lede {
+    font-size: var(--fs-body);
+  }
+
+  .scene__rail {
+    top: max(var(--space-8), 11svh);
+  }
+
+  .scene__cue {
+    bottom: var(--space-5);
+  }
+
+  .scene--static .scene__plate {
+    position: relative;
+    height: 46svh;
+  }
+
+  .scene--static .scene__ui {
+    padding-top: var(--space-6);
+  }
+}

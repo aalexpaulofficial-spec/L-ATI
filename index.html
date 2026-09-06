@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05070A" />
+    <title>LIGHTNING ATI — Turn Your Idea Into the Prompt</title>
+    <meta name="description" content="LIGHTNING ATI — Artificial Thinking Intelligence. Turn simple website ideas into detailed, production-ready website generation prompts." />
+    <meta property="og:title" content="LIGHTNING ATI — Turn Your Idea Into the Prompt" />
+    <meta property="og:description" content="LIGHTNING ATI — Artificial Thinking Intelligence. An AI system that turns website ideas into detailed, production-ready website generation prompts." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/brand/og-card.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/assets/brand/og-card.jpg" />
+
+    <link rel="icon" type="image/png" href="/assets/brand/jc-lightning-ati-bw.png" />
+    <link rel="apple-touch-icon" href="/assets/brand/jc-lightning-ati-bw.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Lightning ATI" />
+
+    <!-- Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- The opening plate and the frame manifest: first paint should never be empty. -->
+    <link rel="preload" as="image" href="/assets/cinematic/plate-start.webp" fetchpriority="high" />
+    <link rel="preload" as="fetch" href="/assets/cinematic/manifest.json" crossorigin />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+    </script>
+  </body>
+</html>
