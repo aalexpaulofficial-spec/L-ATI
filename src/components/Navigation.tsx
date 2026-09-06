@@ -12,6 +12,7 @@ export interface NavigationProps {
 }
 
 const LINKS = [
+  { label: 'Product', href: '#intelligence-core' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Try Lightning', href: '#lightning-studio' },
 ];
@@ -117,61 +118,63 @@ export function Navigation({ onOpenStudio }: NavigationProps) {
           </span>
         </a>
 
-        <nav className="masthead__nav" aria-label="Primary">
-          <ul>
-            {LINKS.map((link) => (
-              <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="masthead__rail-wrap">
+          <nav className="masthead__nav" aria-label="Primary">
+            <ul>
+              {LINKS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <div className="masthead__actions">
-          {/* FREE DOWNLOAD — PWA install button */}
-          <div className="install-wrap">
-            <button
-              type="button"
-              className={`btn btn--download${isInstalled ? ' is-installed' : ''}`}
-              onClick={handleDownload}
-              disabled={isInstalled}
-              aria-label={downloadLabel}
-              title={isInstalled ? 'Already installed on your device' : 'Download and use offline'}
-            >
-              {isInstalled ? (
-                <>
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                    <path d="M1.5 6.5L4.5 9.5L10.5 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+          <div className="masthead__actions">
+            {/* FREE DOWNLOAD — PWA install button */}
+            <div className="install-wrap">
+              <button
+                type="button"
+                className={`btn btn--download${isInstalled ? ' is-installed' : ''}`}
+                onClick={handleDownload}
+                disabled={isInstalled}
+                aria-label={downloadLabel}
+                title={isInstalled ? 'Already installed on your device' : 'Download and use offline'}
+              >
+                {isInstalled ? (
+                  <>
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M1.5 6.5L4.5 9.5L10.5 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    Already installed
+                  </>
+                ) : (
+                  <>
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M6 1v7M3 6l3 3 3-3M1 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    Free download
+                  </>
+                )}
+              </button>
+
+              {/* iOS "Add to Home Screen" guide — appears below the button */}
+              {showIOSGuide && (
+                <div className="ios-guide" role="tooltip" aria-live="polite">
+                  <span className="ios-guide__arrow" aria-hidden="true">▲</span>
+                  Tap{' '}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" style={{ display: 'inline', verticalAlign: 'middle' }}>
+                    <path d="M12 2v12M7 7l5-5 5 5M5 21h14"/>
                   </svg>
-                  Already installed
-                </>
-              ) : (
-                <>
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                    <path d="M6 1v7M3 6l3 3 3-3M1 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Free download
-                </>
+                  {' '}Share, then{' '}
+                  <strong>Add to Home Screen</strong>
+                </div>
               )}
+            </div>
+
+            <button type="button" className="btn btn--ghost masthead__cta" onClick={() => onOpenStudio()}>
+              Try free unlimited
             </button>
-
-            {/* iOS "Add to Home Screen" guide — appears below the button */}
-            {showIOSGuide && (
-              <div className="ios-guide" role="tooltip" aria-live="polite">
-                <span className="ios-guide__arrow" aria-hidden="true">▲</span>
-                Tap{' '}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" style={{ display: 'inline', verticalAlign: 'middle' }}>
-                  <path d="M12 2v12M7 7l5-5 5 5M5 21h14"/>
-                </svg>
-                {' '}Share, then{' '}
-                <strong>Add to Home Screen</strong>
-              </div>
-            )}
           </div>
-
-          <button type="button" className="btn btn--ghost masthead__cta" onClick={() => onOpenStudio()}>
-            Try free unlimited
-          </button>
         </div>
       </div>
     </header>
