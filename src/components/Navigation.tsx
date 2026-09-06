@@ -12,7 +12,6 @@ export interface NavigationProps {
 }
 
 const LINKS = [
-  { label: 'Product', href: '#intelligence-core' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Try Lightning', href: '#lightning-studio' },
 ];

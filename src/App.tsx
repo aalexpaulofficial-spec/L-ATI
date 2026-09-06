@@ -16,6 +16,7 @@ import { IntelligenceCoreSection } from './components/cinematic/IntelligenceCore
 import { IdeaToIntelligenceSection } from './components/cinematic/IdeaToIntelligenceSection';
 import { ProductInterfaceSection } from './components/ProductInterfaceSection';
 import { PromptStudioModal } from './components/PromptStudioModal';
+import { LightningAiBot } from './components/LightningAiBot';
 
 export default function App() {
   const [isStudioOpen, setIsStudioOpen] = useState(false);
@@ -63,6 +64,7 @@ export default function App() {
         </div>
       </footer>
 
+      <LightningAiBot />
       <PromptStudioModal isOpen={isStudioOpen} onClose={closeStudio} initialIdea={initialIdea} />
     </div>
   );

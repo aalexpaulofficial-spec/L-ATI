@@ -13,6 +13,7 @@
 @import './styles/chapters.css';
 @import './styles/product.css';
 @import './styles/studio.css';
+@import './styles/bot.css';
 
 /* ── Global motion preference ───────────────────────────────────────────────
    The cinematic chapters already swap to held frames in JS; this is the
