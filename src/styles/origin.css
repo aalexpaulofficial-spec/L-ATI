@@ -1,0 +1,227 @@
+/* ==========================================================================
+   LIGHTNING ATI — FOUNDER / ORIGIN CLOSING SECTION
+   A cinematic, editorial signature at the final scroll position.
+   Uses the existing design-token vocabulary.
+   ========================================================================== */
+
+/* ── Section container ─────────────────────────────────────────────────── */
+.origin {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(6rem, 12vw, 14rem) var(--gutter) clamp(3rem, 6vw, 5rem);
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border-soft);
+  text-align: center;
+  /* Scroll-reveal: starts faded, slides up */
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity var(--dur-cinematic) var(--ease-enter),
+    transform var(--dur-cinematic) var(--ease-enter);
+}
+
+.origin.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Particle canvas — atmospheric depth ───────────────────────────────── */
+.origin__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+/* ── Faint emblem watermark ────────────────────────────────────────────── */
+.origin__watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(180px, 28vw, 360px);
+  height: clamp(180px, 28vw, 360px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.028;
+  filter: grayscale(1) brightness(2);
+}
+
+.origin__watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── Content wrapper ───────────────────────────────────────────────────── */
+.origin__content {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+/* ── Founder identity block ────────────────────────────────────────────── */
+.origin__identity {
+  margin-bottom: var(--space-7);
+}
+
+.origin__name {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.8vw, 4rem);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-3);
+}
+
+.origin__role {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0 0 var(--space-2);
+}
+
+.origin__sep {
+  margin-inline: 0.3em;
+  color: var(--metal-dark);
+}
+
+.origin__org {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.origin__ati {
+  margin-left: 0.25em;
+  font-weight: var(--fw-light);
+  color: var(--electric-blue-bright);
+}
+
+.origin__dash {
+  margin-inline: 0.35em;
+  color: var(--metal-dark);
+}
+
+/* ── Divider — restrained illumination ─────────────────────────────────── */
+.origin__divider {
+  width: clamp(40px, 8vw, 72px);
+  height: 1px;
+  margin: var(--space-7) auto;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--electric-blue-deep) 30%,
+    var(--electric-blue-bright) 50%,
+    var(--electric-blue-deep) 70%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+/* ── Cinematic statement ───────────────────────────────────────────────── */
+.origin__statement {
+  margin: 0 auto var(--space-7);
+  padding: 0;
+  border: none;
+  max-width: 38rem;
+}
+
+.origin__statement p {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-heading);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ── Origin claim ──────────────────────────────────────────────────────── */
+.origin__claim {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  letter-spacing: var(--tracking-body);
+  color: var(--text-secondary);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+/* ── Bottom signature ──────────────────────────────────────────────────── */
+.origin__signature {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(5rem, 10vw, 10rem);
+}
+
+.origin__sig-brand {
+  font-family: var(--font-display);
+  font-size: var(--fs-nav);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-1);
+}
+
+.origin__sig-ati {
+  margin-left: 0.3em;
+  font-weight: var(--fw-light);
+  color: var(--electric-blue-bright);
+}
+
+.origin__sig-full {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0 0 var(--space-5);
+}
+
+.origin__sig-copy {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.04em;
+  color: var(--metal-dark);
+  margin: 0;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .origin {
+    padding: clamp(4rem, 10vw, 7rem) var(--gutter) clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .origin__name {
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+  }
+
+  .origin__statement p {
+    font-size: clamp(1.15rem, 4.5vw, 1.6rem);
+  }
+
+  .origin__claim {
+    font-size: 0.9rem;
+  }
+
+  .origin__signature {
+    margin-top: clamp(3.5rem, 8vw, 6rem);
+  }
+}

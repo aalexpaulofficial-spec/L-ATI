@@ -17,6 +17,7 @@ import { IdeaToIntelligenceSection } from './components/cinematic/IdeaToIntellig
 import { ProductInterfaceSection } from './components/ProductInterfaceSection';
 import { PromptStudioModal } from './components/PromptStudioModal';
 import { LightningAiBot } from './components/LightningAiBot';
+import { FounderOrigin } from './components/FounderOrigin';
 
 export default function App() {
   const [isStudioOpen, setIsStudioOpen] = useState(false);
@@ -51,18 +52,7 @@ export default function App() {
         <ProductInterfaceSection onOpenStudio={openStudio} />
       </main>
 
-      <footer className="site-foot">
-        <div className="site-foot__inner">
-          <p className="site-foot__brand">
-            <img src="/assets/brand/jc-lightning-ati-bw.png" alt="LIGHTNING ATI Logo" />
-            <span>
-              Lightning<strong>ATI</strong>
-            </span>
-          </p>
-          <p className="site-foot__note">Artificial Thinking Intelligence · Powered by LIGHTNING-1</p>
-          <p className="site-foot__meta">© {new Date().getFullYear()} LIGHTNING ATI</p>
-        </div>
-      </footer>
+      <FounderOrigin />
 
       <LightningAiBot />
       <PromptStudioModal isOpen={isStudioOpen} onClose={closeStudio} initialIdea={initialIdea} />
