@@ -267,36 +267,38 @@
 
 @media (max-width: 900px) {
   .masthead {
-    background: rgba(5, 7, 10, 0.88);
+    background: rgba(5, 7, 10, 0.92);
     backdrop-filter: blur(18px) saturate(120%);
     -webkit-backdrop-filter: blur(18px) saturate(120%);
     border-bottom: 1px solid var(--border-soft);
   }
 
   .masthead__inner {
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0;
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    max-width: 100vw;
-    overflow: hidden;
+    gap: 0;
+    max-width: 100%;
+    overflow: visible;    /* ← CRITICAL: don't clip — let rail-wrap handle scrolling */
+    flex-wrap: nowrap;
   }
 
   .brand {
     flex-shrink: 0;
     margin-right: 0;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    padding-left: 0.75rem;
   }
 
   .brand__mark {
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
     flex-shrink: 0;
   }
 
   .brand__word {
-    font-size: 0.8125rem;
-    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
     white-space: nowrap;
   }
 
@@ -304,31 +306,30 @@
   .masthead__slider-container {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    min-width: 0;
+    flex: 1 1 0%;
+    min-width: 0;        /* ← key: lets flex child shrink below content size */
+    overflow: hidden;    /* ← clips content so rail-wrap scroll is the only scroll */
     position: relative;
   }
 
   .masthead__rail-wrap {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    min-width: 0; /* Enables flex item shrinking so overflow-x takes effect */
+    gap: 0.625rem;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
-    padding-inline: 0.375rem 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.35rem 0.75rem 0.35rem 0.625rem;
     cursor: grab;
 
-    /* Subtle edge fade mask indicating more scrollable items */
-    mask-image: linear-gradient(to right, transparent 0, #000 10px, #000 90%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10px, #000 90%, transparent 100%);
+    /* Fade edges to hint at scrollability */
+    mask-image: linear-gradient(to right, transparent 0, #000 8px, #000 calc(100% - 8px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8px, #000 calc(100% - 8px), transparent 100%);
   }
 
   .masthead__rail-wrap:active {
@@ -336,17 +337,17 @@
   }
 
   .masthead__rail-wrap::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari */
+    display: none;
   }
 
-  /* Sleek slide bar track & thumb indicator */
+  /* Slide progress indicator bar */
   .masthead__slide-track {
     display: block;
     width: 44px;
     height: 2px;
-    background: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 999px;
-    margin: 3px auto 0 auto;
+    margin: 2px auto 0 auto;
     position: relative;
     overflow: hidden;
   }
@@ -356,11 +357,11 @@
     height: 100%;
     background: var(--electric-blue-bright);
     border-radius: 999px;
-    box-shadow: 0 0 6px rgba(73, 180, 255, 0.8);
+    box-shadow: 0 0 6px rgba(73, 180, 255, 0.7);
     transition: transform 0.06s linear;
   }
 
-  /* Display navigation links horizontally inside slider */
+  /* Nav links laid out as flex row inside slider */
   .masthead__nav {
     display: flex !important;
     flex-shrink: 0;
@@ -369,17 +370,21 @@
   .masthead__nav ul {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.625rem;
     padding: 0;
     margin: 0;
     list-style: none;
     flex-wrap: nowrap;
   }
 
+  .masthead__nav li {
+    flex-shrink: 0;
+  }
+
   .masthead__nav a {
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     letter-spacing: 0.06em;
-    padding: 0.35rem 0.2rem;
+    padding: 0.3rem 0;
     white-space: nowrap;
     flex-shrink: 0;
     color: var(--text-secondary);
@@ -390,29 +395,29 @@
     color: var(--text-primary);
   }
 
-  /* Action buttons inside slider */
+  /* Action buttons — stay as non-wrapping flex items */
   .masthead__actions {
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.375rem;
     flex-wrap: nowrap;
   }
 
   .btn--download {
-    min-height: 2.125rem;
-    padding: 0 0.8125rem;
-    font-size: 0.6875rem;
-    letter-spacing: 0.05em;
+    min-height: 1.875rem;
+    padding: 0 0.625rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
   .masthead__cta {
-    min-height: 2.125rem;
-    padding: 0 0.875rem;
-    font-size: 0.6875rem;
-    letter-spacing: 0.05em;
+    min-height: 1.875rem;
+    padding: 0 0.625rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
     white-space: nowrap;
     flex-shrink: 0;
   }
