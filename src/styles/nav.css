@@ -31,7 +31,7 @@
   display: flex;
   align-items: stretch;
   height: 3.25rem;
-  overflow: hidden;
+  overflow: visible;
   padding: 0;
 }
 
@@ -117,8 +117,6 @@
 .masthead__slider-container {
   flex: 1 1 0%;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
   position: relative;
 }
@@ -126,11 +124,11 @@
 /* ── Rail — the actual scrollable strip ──────────────────────────────────── */
 
 .masthead__rail-wrap {
-  flex: 1 1 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
+  height: 100%;
   gap: clamp(1rem, 2.5vw, 2rem);
   overflow-x: auto;
   overflow-y: hidden;
@@ -153,15 +151,9 @@
 
 /* ── Slide progress track ─────────────────────────────────────────────────── */
 
+/* Slide track: hidden on desktop, absolute on mobile */
 .masthead__slide-track {
-  flex: 0 0 auto;
-  width: 40px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  margin: 0 auto 3px;
-  position: relative;
-  overflow: hidden;
+  display: none;
 }
 
 .masthead__slide-thumb {
@@ -363,6 +355,21 @@
 
   .masthead__inner {
     height: 3rem;
+  }
+
+  /* Show slide indicator on mobile only, floating at bottom of container */
+  .masthead__slide-track {
+    display: block;
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 999px;
+    overflow: hidden;
+    pointer-events: none;
   }
 
   .brand {
